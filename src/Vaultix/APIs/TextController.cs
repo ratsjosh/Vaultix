@@ -17,21 +17,25 @@ namespace Vaultix.APIs
         // Implementing asynchronous tasks
         // http://stackoverflow.com/questions/38309165/how-to-consume-a-asp-net-core-webapi-in-a-c-sharp-uwp-application
         [HttpGet]
-        public async Task<IEnumerable<string>> Get(string message)
+        public async Task<JsonResult> Get(string message)
         {
-            using (var client = new HttpClient())
+            try
             {
-                // We'll obtain the accesstoken from the static utils class
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + WitAiUtils._accessToken);
+                using (var client = new HttpClient())
+                {
 
-                var response =
-                    await client.GetStringAsync("https://api.wit.ai/message?v=20170307&q=" + message);
+                    // We'll obtain the accesstoken from the static utils class
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + WitAiUtils._accessToken);
 
-                // The response object is a string that looks like this:
-                // "{ message: 'Hello world!' }"
+                    var response =
+                        await client.GetStringAsync("https://api.wit.ai/message?v=20170307&q=" + message);
+                    
+                }
+
+                return new JsonResult(Response);
+            } catch (Exception ex) {
+                return new JsonResult(ex.ToString());
             }
-
-            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
