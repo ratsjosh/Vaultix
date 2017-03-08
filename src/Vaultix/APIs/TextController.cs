@@ -30,6 +30,9 @@ namespace Vaultix.APIs
 
                     HttpResponseMessage response =
                         client.GetAsync("https://api.wit.ai/message?v=20170307&q=" +
+
+                        // Made a bit of searching via http://packagesearch.azurewebsites.net
+                        // to retrieve the exact method to utilize for URL encoding
                         System.Net.WebUtility.UrlDecode(message)).Result;
 
                     // If the call is successful
