@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using Vaultix.Utils;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,21 +22,37 @@ namespace Vaultix.APIs
         {
             try
             {
+                //%20
                 using (var client = new HttpClient())
                 {
-
                     // We'll obtain the accesstoken from the static utils class
                     client.DefaultRequestHeaders.Add("Authorization", "Bearer " + WitAiUtils._accessToken);
 
-                    var response =
-                        await client.GetStringAsync("https://api.wit.ai/message?v=20170307&q=" + message);
-                    
+                    HttpResponseMessage response =
+                        client.GetAsync("https://api.wit.ai/message?v=20170307&q=" + 
+                        APIUtils.ConvertToURL(message)).Result;
+
+                    // If the call is successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Retrieve the result of the response
+                        var msg = response.Content.ReadAsStringAsync().Result;
+
+                        // Reading a JsonObject
+                        // https://damienpontifex.github.io/net-core-web-request
+                        return new JsonResult(JsonConvert.DeserializeObject(msg));
+                    }
                 }
 
-                return new JsonResult(Response);
+                return new JsonResult("HttpClient Failed Somehow");
             } catch (Exception ex) {
                 return new JsonResult(ex.ToString());
             }
+        }
+
+        private string ConvertToURL(string message)
+        {
+            throw new NotImplementedException();
         }
 
         // GET api/values/5
