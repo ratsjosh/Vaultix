@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Vaultix.APIs
 {
     [Route("api/[controller]")]
-    public class TextController : Controller
+    public class TextsController : Controller
     {
         // GET: api/values
         // Implementing asynchronous tasks
