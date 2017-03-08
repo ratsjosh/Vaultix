@@ -29,8 +29,8 @@ namespace Vaultix.APIs
                     client.DefaultRequestHeaders.Add("Authorization", "Bearer " + WitAiUtils._accessToken);
 
                     HttpResponseMessage response =
-                        client.GetAsync("https://api.wit.ai/message?v=20170307&q=" + 
-                        APIUtils.ConvertToURL(message)).Result;
+                        client.GetAsync("https://api.wit.ai/message?v=20170307&q=" +
+                        System.Net.WebUtility.UrlDecode(message)).Result;
 
                     // If the call is successful
                     if (response.IsSuccessStatusCode)
