@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Vaultix.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Vaultix
 {
@@ -38,7 +40,11 @@ namespace Vaultix
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
-        }
+
+            services.AddDbContext<VaultixContext>(options =>
+        options.UseSqlServer(Configuration.GetConnectionString("VaultixDatabase")));
+        
+    }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

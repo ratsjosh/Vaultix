@@ -17,7 +17,7 @@ namespace Vaultix.Controllers
     [Route("api/[controller]")]
     public class ImagesController : Controller
     {
-        // GET: api/values
+        // GET: api/images
         [HttpPost]
         public async Task<OcrResults> OCRAnalysis([FromBody]string imageUrl)
         {
@@ -26,7 +26,7 @@ namespace Vaultix.Controllers
             return ocrResult;
         }
 
-        // GET api/values/5
+        // GET api/images/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
