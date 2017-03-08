@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using Vaultix.APIs;
+using System.Net.Http.Headers;
+using System.Text;
+using Microsoft.ProjectOxford.Vision;
+using Microsoft.ProjectOxford.Vision.Contract;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,10 +18,12 @@ namespace Vaultix.Controllers
     public class ImagesController : Controller
     {
         // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpPost]
+        public async Task<OcrResults> OCRAnalysis([FromBody]string imageUrl)
         {
-            return new string[] { "GET request for Image Controller" };
+            VisionServiceClient VisionServiceClient = new VisionServiceClient(Config.COMPUTER_VISION_API_KEY);
+            OcrResults ocrResult = await VisionServiceClient.RecognizeTextAsync(imageUrl, "en");
+            return ocrResult;
         }
 
         // GET api/values/5
@@ -23,12 +31,6 @@ namespace Vaultix.Controllers
         public string Get(int id)
         {
             return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
         }
 
         // PUT api/values/5

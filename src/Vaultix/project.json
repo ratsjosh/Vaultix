@@ -1,4 +1,4 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.ApplicationInsights.AspNetCore": "2.0.0",
     "Microsoft.AspNetCore.Mvc":"1.1.2",
@@ -15,7 +15,8 @@
     "Microsoft.NETCore.App": {
       "version": "1.0.1",
       "type": "platform"
-    }
+    },
+    "Microsoft.ProjectOxford.Vision": "1.0.372"
   },
 
   "tools": {
