@@ -40,9 +40,6 @@ namespace Vaultix
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
-
-            services.AddDbContext<VaultixContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("VaultixDatabase")));
         
     }
 
