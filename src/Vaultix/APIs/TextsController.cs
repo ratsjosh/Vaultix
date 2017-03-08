@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
-using Vaultix.Utils;
 using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,7 +25,7 @@ namespace Vaultix.APIs
                 using (var client = new HttpClient())
                 {
                     // We'll obtain the accesstoken from the static utils class
-                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + WitAiUtils._accessToken);
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Config.WIT_AI_ACCESS_TOKEN);
 
                     HttpResponseMessage response =
                         client.GetAsync("https://api.wit.ai/message?v=20170307&q=" +
